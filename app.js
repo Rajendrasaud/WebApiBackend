@@ -57,6 +57,17 @@ app.post("/user/register", (req, res) => {
 
 /////////////////////////UPDATE////////////////////////////
 
+app.put("/user/update", (req, res) => {
+    var ut='admin'
+        User.findOneAndUpdate({ user_type: ut }, req.body, { new: true }, (err, doc) => {
+            if (!err) {
+                res.send(true);
+            } else {
+                res.send(false);
+            }
+        });
+    
+    });
 
 
 
