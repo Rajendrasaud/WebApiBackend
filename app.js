@@ -346,6 +346,77 @@ app.get("/product/getall", (req, res) => {
 });
 
 
+
+    
+
+
+
+// --------------------------IMAGE UPLOAD-------------------------------
+
+var imageFileFilter = (req, file, cb) => {
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif|PNG)$/)) {
+        return cb(newError("You can upload only image files!!!"), false);
+    } else {
+        cb(null, true)
+    }
+}
+
+// (USER)
+var storage = multer.diskStorage({
+    destination: './assets/images/user',
+    filename: function(req, file, callback) {
+        const ext = path.extname(file.originalname);
+        TotalImage = file.fieldname + Date.now() + ext;
+        profile=TotalImage;
+        console.log("total img" + TotalImage)
+        callback(null, TotalImage);
+    }
+});
+
+var upload = multer({
+    storage: storage,
+    fileFilter: imageFileFilter,
+    limits: { fileSize: 99999999 }
+});
+
+app.post('/upload/user', upload.single('image'), (req, res) => {
+    console.log("/upload: " + TotalImage)
+    res.end(JSON.stringify({
+        image: TotalImage
+    }))
+});
+
+
+
+
+// (PRODUCT)
+
+var storageProduct = multer.diskStorage({
+    destination: './assets/images/product',
+    filename: function(req, file, callback) {
+        const ext = path.extname(file.originalname);
+        TotalImage = file.fieldname + Date.now() + ext;
+        product_image=TotalImage;
+        console.log("total img" + TotalImage)
+        callback(null, TotalImage);
+    }
+});
+
+var uploadProduct = multer({
+    storage: storageProduct,
+    fileFilter: imageFileFilter,
+    limits: { fileSize: 99999999 }
+});
+
+app.post('/upload/product', uploadProduct.single('image'), (req, res) => {
+    console.log("/upload: " + TotalImage)
+    res.end(JSON.stringify({
+            image: TotalImage
+        }))
+});
+
+
+
 // +++++++++++++++++++++++++++++++++++++++END++++++++++++++++++++++++++++++++++++++++++++
 
 
