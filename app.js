@@ -114,4 +114,17 @@ app.get("/user/get/:id", (req, res) => {
 
 
 
+app.get("/user/getall", (req, res) => {
+    var sortById = { _id: -1 }
+
+    User.find().sort(sortById).then(function(userdata) {
+        console.log("Getting user data")
+        res.send(userdata);
+    }).catch(function(e) {
+        res.send(e)
+    })
+});
+
+
+
 app.listen(8080);
