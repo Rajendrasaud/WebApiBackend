@@ -254,4 +254,38 @@ app.delete("/empty/cart", (req, res) => {
 })
 
 
+
+app.delete("/empty/cartById", (req, res) => {
+    // console.log(req.body.pid)
+    Cart.deleteOne({ _id: req.body.pid }, function(err, doc) {
+        if (err) {
+            console.log("error")
+            res.send(false)
+        } else {
+            res.send(true)
+        }
+
+    })
+})
+
+
+
+/////////////////////////DELETE////////////////////////////
+
+app.delete("/product/delete", (req, res) => {
+    // console.log(req.body)
+    Product.findByIdAndRemove({ _id: req.body._id }, function(err, doc) {
+        if (err) {
+            console.log("error")
+            res.send(false)
+        } else {
+            console.log("success")
+            res.send(true)
+        }
+
+    })
+})
+
+
+
 app.listen(8080);
