@@ -223,4 +223,35 @@ app.post("/product/addtocart", (req, res) => {
 
 
 
+
+// get by id from cart
+app.get("/cart/get/:id", (req, res) => {
+    const uid = req.params.id;
+    var pid;
+    Cart.find({
+        user_id: uid
+    }).then(function(prod) {
+        pid=prod.product_name;
+        console.log(pid)
+        res.send(prod);
+    }).catch(function(e) {
+        res.send(e)
+    })
+});
+
+app.delete("/empty/cart", (req, res) => {
+    console.log(req.body)
+    Cart.deleteMany({ user_id: req.body.user_id }, function(err, doc) {
+        if (err) {
+            console.log("error")
+            res.send(false)
+        } else {
+            console.log("success")
+            res.send(true)
+        }
+
+    })
+})
+
+
 app.listen(8080);
