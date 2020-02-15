@@ -288,4 +288,68 @@ app.delete("/product/delete", (req, res) => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+/////////////////////////SELECT////////////////////////////
+
+app.get("/product/get/:id", (req, res) => {
+    const uid = req.params.id;
+    Product.findById({
+        _id: uid
+    }).then(function(prod) {
+        res.send(prod);
+    }).catch(function(e) {
+        res.send(e)
+    })
+});
+
+app.post("/product/getById", (req, res) => {
+    const pid = req.body.product_id;
+    console.log('In get product by id: '+pid)
+    Product.findById({
+        _id: pid
+    }).then(function(prod) {
+        res.send(prod);
+    }).catch(function(e) {
+        res.send(e)
+    })
+});
+
+app.get("/product/getByCategory/:category", (req, res) => {
+    const val = req.params.category;
+    Product.find({
+        product_category: val
+    }).then(function(prod) {
+        res.send(prod);
+    }).catch(function(e) {
+        res.send(e)
+    })
+});
+
+app.get("/product/getall", (req, res) => {
+    var sortById = { _id: -1 }
+
+    Product.find().sort(sortById).then(function(productdata) {
+        // console.log("Getting Product data")
+        res.send(productdata);
+    }).catch(function(e) {
+        res.send(e)
+    })
+});
+
+
+// +++++++++++++++++++++++++++++++++++++++END++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+
+
 app.listen(8080);
