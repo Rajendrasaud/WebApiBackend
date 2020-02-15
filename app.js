@@ -127,4 +127,13 @@ app.get("/user/getall", (req, res) => {
 
 
 
+
+/////////////////////////AUTH////////////////////////////
+
+app.get('/checking/auth', auth, function(req, res) {
+    res.send(req.user)
+})
+
+
+
 app.listen(8080);
