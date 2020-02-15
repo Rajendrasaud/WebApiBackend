@@ -153,6 +153,19 @@ app.post("/user/login", async(req, res) => {
             'user_image': user.user_image
         });
     });
+
+    /////////////////////////LOGOUT////////////////////////////
+
+app.post('/logout', auth, async(req, res) => {
+    try {
+        console.log("Logout clicked")
+        req.user.tokens = []
+        await req.user.save()
+        res.send(true)
+    } catch (e) {
+        res.status(500).send()
+    }
+})
     
 
 
