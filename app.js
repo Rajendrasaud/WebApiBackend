@@ -98,6 +98,20 @@ app.delete("/user/delete", (req, res) => {
     })
 })
 
+/////////////////////////SELECT////////////////////////////
+
+app.get("/user/get/:id", (req, res) => {
+    const uid = req.params.id;
+    console.log("userid: "+uid)
+    User.findById({
+        _id: uid
+    }).then(function(usr) {
+        res.send(usr);
+    }).catch(function(e) {
+        res.send(e)
+    })
+});
+
 
 
 app.listen(8080);
