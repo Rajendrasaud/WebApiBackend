@@ -82,4 +82,22 @@ app.put("/user/updateuser", (req, res) => {
 
 
 
+/////////////////////////DELETE////////////////////////////
+
+app.delete("/user/delete", (req, res) => {
+    // console.log(req.body)
+    User.findByIdAndRemove({ _id: req.body._id }, function(err, doc) {
+        if (err) {
+            console.log("error")
+            res.send(false)
+        } else {
+            console.log("success")
+            res.send(true)
+        }
+
+    })
+})
+
+
+
 app.listen(8080);
