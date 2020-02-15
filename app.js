@@ -197,6 +197,28 @@ app.post("/product/register", (req, res) => {
     })
 });
 
+// add to cart
+
+app.post("/product/addtocart", (req, res) => {
+
+    var data = new Cart({
+        user_id: req.body.user_id,
+        product_name: req.body.product_name,
+        product_image: req.body.product_image,
+        product_price: req.body.product_price,
+        product_brand: req.body.product_brand,
+        product_color: req.body.product_color,
+        time: Date.now()      
+    });
+
+    // console.log(data);
+
+    data.save().then(function() {
+        res.send(true)
+    }).catch(function() {
+        res.send(false);
+    })
+});
     
 
 
