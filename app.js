@@ -166,6 +166,37 @@ app.post('/logout', auth, async(req, res) => {
         res.status(500).send()
     }
 })
+
+// +++++++++++++++++++++++++++++++++++++++END++++++++++++++++++++++++++++++++++++++++++++
+
+
+// -------------------------------PRODUCT--------------------------------------
+
+
+/////////////////////////INSERT////////////////////////////
+var product_image;
+
+app.post("/product/register", (req, res) => {
+    var data = new Product({
+        product_name: req.body.product_name,
+        product_description: req.body.product_description,
+        product_price: req.body.product_price,
+        product_weight: req.body.product_weight,
+        product_category: req.body.product_category,
+        product_brand: req.body.product_brand,
+        product_image: product_image,
+      
+    });
+
+    console.log(data);
+
+    data.save().then(function() {
+        res.send(true)
+    }).catch(function() {
+        res.send(false);
+    })
+});
+
     
 
 
