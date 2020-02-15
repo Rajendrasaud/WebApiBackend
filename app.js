@@ -18,7 +18,7 @@ app.use(express.static('views'));
 
 app.use(express.json());
 app.use(cors());
-app.use(express.urlencoded({extended: true}))
+app.use(express.urlencoded({ extended: true }))
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/assets/images", express.static("assets/images"));
 app.use("/assets/images/profile", express.static("assets/images/profile"));
@@ -33,8 +33,8 @@ app.use("/assets/images/products", express.static("assets/images/products"));
 var profile;
 
 app.post("/user/register", (req, res) => {
-    if(profile==""){
-        profile="user_profile.jpg";
+    if (profile == "") {
+        profile = "user_profile.jpg";
     }
     var data = new User({
         user_name: req.body.user_name,
@@ -42,14 +42,14 @@ app.post("/user/register", (req, res) => {
         user_password: req.body.user_password,
         user_type: 'user',
         user_image: profile,
-      
+
     });
 
     console.log(data);
 
-    data.save().then(function() {
+    data.save().then(function () {
         res.send(true)
-    }).catch(function() {
+    }).catch(function () {
         res.send(false);
     })
 });
@@ -58,16 +58,27 @@ app.post("/user/register", (req, res) => {
 /////////////////////////UPDATE////////////////////////////
 
 app.put("/user/update", (req, res) => {
-    var ut='admin'
-        User.findOneAndUpdate({ user_type: ut }, req.body, { new: true }, (err, doc) => {
-            if (!err) {
-                res.send(true);
-            } else {
-                res.send(false);
-            }
-        });
-    
+    var ut = 'admin'
+    User.findOneAndUpdate({ user_type: ut }, req.body, { new: true }, (err, doc) => {
+        if (!err) {
+            res.send(true);
+        } else {
+            res.send(false);
+        }
     });
+
+});
+app.put("/user/updateuser", (req, res) => {
+    var id = req.body.id;
+    User.findOneAndUpdate({ _id: id }, req.body, { new: true }, (err, doc) => {
+        if (!err) {
+            res.send(true);
+        } else {
+            res.send(false);
+        }
+    });
+
+});
 
 
 
