@@ -136,4 +136,25 @@ app.get('/checking/auth', auth, function(req, res) {
 
 
 
+
+/////////////////////////LOGIN////////////////////////////
+
+app.post("/user/login", async(req, res) => {
+    console.log('In login')
+        const user = await User.checkCrediantialsDb(req.body.user_email, req.body.user_password);
+        const token = await user.generateAuthToken();
+        res.send({
+            'token': token,
+            'id': user._id,
+            'user_name': user.user_name,
+            'user_type': user.user_type,
+            'user_email': user.user_email,
+            'user_password': user.user_password,
+            'user_image': user.user_image
+        });
+    });
+    
+
+
+
 app.listen(8080);
