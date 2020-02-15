@@ -1,0 +1,18 @@
+{
+    "main": "app.js",
+    "scripts": {
+        "test": "jest"
+    },
+    "jest": {
+        "testEnvironment": "node"
+    },
+    "dependencies": {
+        "body-parser": "^1.15.0",
+        "cors": "^2.8.5",
+        "express": "^4.13.4",
+        "jest": "^24.8.0",
+        "jsonwebtoken": "^5.7.0",
+        "mongoose": "^4.13.18",
+        "multer": "^1.4.1"
+    }
+}
